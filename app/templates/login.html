@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block feed%}
+
+<div class="transbox submitBack" >
+<h1 class="submitText">Sign In</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{message}}</li>
+    {% endfor %}
+</ul>
+{%endif%}
+{%endwith%}
+<form action='' method='post'>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}
+        {% for error in form.username.errors %}
+        <br><span class='form-error'>{{error}}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}
+        {% for error in form.password.errors %}
+        <br><span class='form-error'>{{error}}</span>
+        {% endfor %}
+    </p>
+    <p>{{form.remember_me()}} {{form.remember_me.label}}</p>
+    <p>{{ form.submit() }}</p>
+    <p>New User? <a href={{url_for('registeruser')}}>Register</a></p>
+</form>
+
+</div>
+{%endblock%}

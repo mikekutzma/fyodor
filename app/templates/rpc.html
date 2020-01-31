@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block feed%}
+
+<div class="transbox submitBack" >
+<h1 class="submitText">RPC</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{message}}</li>
+    {% endfor %}
+</ul>
+{%endif%}
+{%endwith%}
+<form action='' method='post'>
+    {{ form.hidden_tag() }}<br>
+    <p>
+        {{ form.service.label }}
+        {{ form.service }}
+        {% for error in form.service.errors %}
+        <br><span class='form-error'>{{error}}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.command.label }}
+        {{ form.command }}
+        {% for error in form.command.errors %}
+        <br><span class='form-error'>{{error}}</span>
+        {% endfor %}
+    </p>
+    {% for param in form.params %}
+    {{ form.params.hidden_tag() }}
+    {% if param.short_name != "csrf_token" %}
+    <p>
+        {{ param.label }}
+        {{ param }}
+        {% for error in param.errors %}
+        <br><span class='form-error'>{{error}}</span>
+        {% endfor %}
+    </p>
+    {% endif %}
+    {% endfor %}
+    <input type="submit">
+</form>
+{%endblock%}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <head>
+        <title>Home</title>
+		<script type=text/javascript src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type=text/javascript src="{{url_for('static', filename='js/jquery.colorbox.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+    </head>
+    <body>
+        <div class="topnav" id="myTopnav">
+            <a href={{url_for('home')}}
+            {% if '/home' in request.path%}
+            class="active"
+            {% endif %}
+            >Home</a>
+            {% if current_user.is_anonymous %}
+            <a id="login-link" href={{url_for('login')}}
+            {% if '/login' in request.path%}
+            class="active"
+            {% endif %}
+            >Log In</a>
+            {% else %}
+            <a id="login-link" href={{url_for('logout')}}>Log Out</a>
+            {% endif %}
+            {% if current_user.is_authenticated and current_user.is_admin %}
+            <a id="admin-link" href={{url_for('admin.index')}}>Admin</a>
+            {% endif %}
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+        </div>
+            
+        <div class="container">
+            <div class="wrapper">
+
+                <div class="feed">
+                 {% block feed %}
+
+                 {%endblock%}                
+                </div>        
+    <!--
+                <aside class="side">Some Sidebar</aside>
+                <div class="ad">Advertising goes here.</div>
+    -->
+                <script>
+                function myFunction() {
+                    var x = document.getElementById("myTopnav");
+                    if (x.className === "topnav") {
+                        x.className += " responsive";
+                    } else {
+                        x.className = "topnav";
+                    }
+                }
+                </script>
+            </div>
+        </div>
+           
+        <div class="footer">
+            <p></p>
+        </div>
+    </body>
+    
+</html>
