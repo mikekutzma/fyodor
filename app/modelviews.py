@@ -4,6 +4,9 @@ from flask_login import current_user
 
 
 class AdminModelView(ModelView):
+    column_exclude_list = ["password_hash", "api_key"]
+    column_editable_list = ["is_approved"]
+
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
 
